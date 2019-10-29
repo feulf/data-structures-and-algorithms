@@ -60,23 +60,27 @@ class BinaryTree:
                 queue.enqueue(current_node.right_child)
 
 
-a_node = BinaryTree('a')
-a_node.insert_left('b')
-a_node.insert_right('c')
+if __name__ == "__main__":
+    a_node = BinaryTree('a')
+    a_node.insert_left('b')
+    a_node.insert_right('c')
 
-b_node = a_node.left_child
-b_node.insert_right('d')
+    b_node = a_node.left_child
+    b_node.insert_right('d')
 
-c_node = a_node.right_child
-c_node.insert_left('e')
-c_node.insert_right('f')
+    c_node = a_node.right_child
+    c_node.insert_left('e')
+    c_node.insert_right('f')
 
-d_node = b_node.right_child
-e_node = c_node.left_child
-f_node = c_node.right_child
+    d_node = b_node.right_child
+    e_node = c_node.left_child
+    f_node = c_node.right_child
 
-# print(a_node.pre_order())
-# print(a_node.in_order())
-# print(a_node.post_order())
-print(a_node.bfs())  # a
+    # DFS
+    # print(a_node.pre_order())
+    # print(a_node.in_order())
+    # print(a_node.post_order())
+
+    # BFS
+    print(a_node.bfs())  # a
 
