@@ -1,30 +1,82 @@
-import hashlib
-
-hashed_list = [None] * 10  # create an array of None
+from queue import Queue
 
 
-def key_position(key):
-    string = key.encode()  # convert to bytes
-    hashed_key = hashlib.sha256(string)  # hash the string
-    hex_digest = hashed_key.hexdigest()  # get the hex value
-    int_digest = int(hex_digest, 16)  # convert to int
-    return int_digest % len(hashed_list)  # run the modulo of the length of the array
+class BinaryTree:
+    def __init__(self, value):
+        self.value = value
+        self.left_child = None
+        self.right_child = None
+
+    def insert_left(self, value):
+        if self.left_child == None:
+            self.left_child = BinaryTree(value)
+        else:
+            new_node = BinaryTree(value)
+            new_node.left_child = self.left_child
+            self.left_child = new_node
+
+    def insert_right(self, value):
+        if self.right_child == None:
+            self.right_child = BinaryTree(value)
+        else:
+            new_node = BinaryTree(value)
+            new_node.right_child = self.right_child
+            self.right_child = new_node
+
+    # DFS
+
+    # Data traversal
+    def pre_order(self):
+        print(self.value)
+        if self.left_child:
+            self.left_child.pre_order()
+        if self.right_child:
+            self.right_child.pre_order()
+
+    def in_order(self):
+        if self.left_child:
+            self.left_child.in_order()
+        print(self.value)
+        if self.right_child:
+            self.right_child.in_order()
+
+    def post_order(self):
+        if self.left_child:
+            self.left_child.post_order()
+        if self.right_child:
+            self.right_child.post_order()
+        print(self.value)
+
+    # BFS
+    def bfs(self):
+        queue = Queue()
+        queue.enqueue(self)
+        while not queue.isEmpty():
+            current_node = queue.dequeue()
+            print(current_node.value)
+            if current_node.left_child:
+                queue.enqueue(current_node.left_child)
+            if current_node.right_child:
+                queue.enqueue(current_node.right_child)
 
 
-def insert(key, value):
-    index = key_position(key)
-    hashed_list[index] = value
+a_node = BinaryTree('a')
+a_node.insert_left('b')
+a_node.insert_right('c')
 
+b_node = a_node.left_child
+b_node.insert_right('d')
 
-def read(key):
-    index = key_position(key)
-    return hashed_list[index]
+c_node = a_node.right_child
+c_node.insert_left('e')
+c_node.insert_right('f')
 
+d_node = b_node.right_child
+e_node = c_node.left_child
+f_node = c_node.right_child
 
-insert("Satoshi Nakamoto", "Unknown")
-insert("Federico", "5.7")
-insert("Joe", "6.1")
+# print(a_node.pre_order())
+# print(a_node.in_order())
+# print(a_node.post_order())
+print(a_node.bfs())  # a
 
-print(read("Satoshi Nakamoto"))
-print(read("Federico"))
-print(read("Joe"))
