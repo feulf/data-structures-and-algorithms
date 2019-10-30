@@ -4,7 +4,7 @@ hashed_list = [None] * 10  # create an array of None
 
 
 def key_position(key):
-    string = key.encode()  # convert to bytes
+    string = key.encode()  # convert to bits
     hashed_key = hashlib.sha256(string)  # hash the string
     hex_digest = hashed_key.hexdigest()  # get the hex value
     int_digest = int(hex_digest, 16)  # convert to int
